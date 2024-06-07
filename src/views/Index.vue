@@ -4,14 +4,14 @@
             <h2>酒店系统信息管理平台</h2>
             <el-menu
         active-text-color="#ffd04b"
-        background-color="#545c64"
+        background-color="#142334"
         class="el-menu-vertical-demo"
         default-active="2"
         text-color="#fff"
       >
         <el-sub-menu index="1">
           <template #title>
-            <el-icon><location /></el-icon>
+            <el-icon><User /></el-icon>
             <span>账户管理</span>
           </template>
           <el-menu-item index="1-1">角色管理</el-menu-item>
@@ -47,14 +47,43 @@
       </el-menu>
         </div>
         <div class="right">
-            <div class="top">2</div>
+            <div class="top">
+                    <el-menu
+          :ellipsis="false"
+          mode="horizontal"
+          active-text-color="#ffd04b"
+          background-color="#142334"
+          text-color="#fff"
+        >
+          <el-menu-item index="1">
+            <el-icon> <HomeFilled /> </el-icon>
+            首页
+          </el-menu-item>
+          <el-menu-item index="2">
+            <el-icon> <Message /> </el-icon>
+            邮件
+          </el-menu-item>
+          <el-menu-item index="3">
+            <el-icon> <ChatDotSquare /> </el-icon>
+            消息
+          </el-menu-item>
+          <el-sub-menu index="4">
+            <template #title>
+              <el-icon> <Avatar /> </el-icon>
+              管理员</template>
+            <el-menu-item index="2-1">个人中心</el-menu-item>
+            <el-menu-item index="2-2">修改密码</el-menu-item>
+            <el-menu-item index="2-3">退出系统</el-menu-item>
+          </el-sub-menu>
+        </el-menu>
+            </div>
             <div class="content">3</div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-
+import { User,Location,HomeFilled,Message,ChatDotSquare,Avatar} from '@element-plus/icons-vue'
 </script>
 
 <style scoped lang="scss">
@@ -67,6 +96,11 @@
         width: 200px;
         background-color: #142334;
         color: #fff;
+
+        .el-menu{
+          border-right: none;
+        }
+
         h2{
             font-size: 18px;    
             font-family: "bing";
@@ -85,6 +119,11 @@
             height: 60px;
             background-color: #142334;
             color: #fff;
+            display: flex;
+            justify-content: flex-end;
+            .el-menu{
+              border-bottom: none;
+            }
         }
         .content{
             flex: 1;
