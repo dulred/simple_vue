@@ -1,11 +1,14 @@
 <template>
-    <div class="role">
+    <div class="roomtype">
         <div class="search">
             <el-button type="primary" size="small" @click="(editRef as any).drawer=true">添加</el-button>
         </div>
-        <el-table :data="showRoles" style="width: 100%">
-            <el-table-column prop="roleId" label="编号" width="100" />
-            <el-table-column prop="roleName" label="名称" width="100" />
+        <el-table :data="showList" style="width: 100%">
+            <el-table-column prop="roomTypeId" label="房型编号" width="100" />
+            <el-table-column prop="roomTypeName" label="房型种类" width="100" />
+            <el-table-column prop="bednum" label="床位数量" width="100" />
+            <el-table-column prop="roomTypePrice" label="房型价格" width="100" />
+            <el-table-column prop="typeDescription" label="房型描述" width="100" />
             <el-table-column label="操作">
                 <template #default="scope">
                     <el-button size="small" @click="handleEdit(scope.row.roleId)">
@@ -21,45 +24,48 @@
                 </template>
             </el-table-column>
         </el-table>
-        <EditRole ref="editRef" @sync-list="loadRoles"></EditRole>
+        <EditRoomType ref="editRef" @sync-list="loadList"></EditRoomType>
         <el-pagination small  style="margin-top: 10px;" background layout="prev, pager, next"
-         :total="roles.length" :page-size="1"  v-model:current-page="pageIndex"></el-pagination>
+         :total="list.length" :page-size="1"  v-model:current-page="pageIndex"></el-pagination>
             </div>
 </template>
 
 <script setup lang="ts">
-    import EditRole from "../../components/user/EditRole.vue"
+    import EditRoomType from "../../components/room/EditRoomType.vue"
     import { onMounted, ref, computed} from 'vue';
-    import {$list,$delete,$getOne} from '../../api/role.ts'
+    import {$list,$delete,$getOne} from '../../api/roomType.ts'
     import { ElMessage, ElMessageBox ,ElNotification} from 'element-plus'
 
-    interface Role {
-        roleId: string
-        roleName: string
+    interface List {
+        bednum:number,
+        roomTypeId:number,
+        roomTypeName: string,
+        roomTypePrice:number,
+        typeDescription:string
     }
 
     interface EditRef {
-        drawer: boolean
+        drawer: boolean 
         formData:object
     }
     // 角色列表
-    let roles = ref<Role[]>([]);
+    let list = ref<List[]>([]);
 
     // 页码
     let pageIndex = ref(1)
 
     // 显示的列表
-    let showRoles = computed(()=>{
-        return roles.value.slice((pageIndex.value - 1)*1,pageIndex.value*1)
+    let showList = computed(()=>{
+        return list.value.slice((pageIndex.value - 1)*1,pageIndex.value*1)
     })
 
     // 加载角色列表
-    const loadRoles = async ()=>{
-        roles.value = $list()
+    const loadList = async ()=>{
+        list.value = $list()
     }
 
     onMounted(()=>{
-        loadRoles()
+        loadList()
     })
 
     const handleEdit = async (roleId:number) => {
@@ -86,7 +92,7 @@
                         message: ret.message,
                         type: 'success',
                     })
-                    loadRoles()
+                    loadList()
                 } else {
                 ElNotification({
                         title: '提示',
