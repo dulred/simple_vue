@@ -68,13 +68,13 @@
         loadList()
     })
 
-    const handleEdit = async (roleId:number) => {
-        let ret = await $getOne({roleId})
+    const handleEdit = async (roomTypeId:number) => {
+        let ret = await $getOne({roomTypeId})
         editRef.value!.drawer= true
         editRef.value!.formData = ret
     }
 
-    const handleDelete = (roleId:number) => {
+    const handleDelete = (roomTypeId:number) => {
         ElMessageBox.confirm(
             '确当删除吗?',
             'Warning',
@@ -85,7 +85,7 @@
             }
         )
             .then(() => {
-            let ret = $delete({roleId})
+            let ret = $delete({roomTypeId})
             if (ret.success) {
                     ElNotification({
                         title: '提示',

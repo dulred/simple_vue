@@ -9,7 +9,7 @@ import {createPinia} from 'pinia'
 //引入element-ui    
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 //导入路由器
 import router from './router'
     
@@ -19,6 +19,8 @@ const pinia = createPinia()
 
 createApp(App)
 .use(router)
-.use(ElementPlus)
+.use(ElementPlus, {
+    locale: zhCn,
+  })
 .use(pinia)
 .mount('#app')

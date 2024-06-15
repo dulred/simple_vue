@@ -27,3 +27,6 @@ Vue VSCode Snippets
 
 富文本编辑器
 wangEditor
+
+<!-- 可视化图表 -->
+npm install echarts

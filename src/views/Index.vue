@@ -3,11 +3,12 @@
         <div class="left">
             <h2>酒店系统信息管理平台</h2>
             <el-menu
+            :default-active="activeIndex"
+            @select="selectMenuItem"
             router
         active-text-color="#ffd04b"
         background-color="#142334"
         class="el-menu-vertical-demo"
-        default-active="2"
         text-color="#fff"
       >
         <el-sub-menu index="1">
@@ -50,6 +51,7 @@
         <div class="right">
             <div class="top">
                     <el-menu
+                  @select="selectMenuItem"
                   :default-active="activeIndex"
                     router
           :ellipsis="false"
@@ -98,12 +100,21 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 let userStore = useUser()
 let router = useRouter()
 
-// 提供默认的激活菜单
+// 提供默认的激活菜单 (高亮索引)
 const activeIndex = ref('/index')
+// 选中菜单项方法
+let selectMenuItem = (index)=>{
+  sessionStorage.setItem('activeIndex',index)
+  activeIndex.value = index
+}
+
 // 拦截进入登录页面
 onMounted(()=>{
   if(!userStore.user.loginId){
     router.push('/')
+  }
+  if(sessionStorage.getItem('activeIndex')){
+    activeIndex.value = sessionStorage.getItem('activeIndex')
   }
 })
 
